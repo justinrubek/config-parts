@@ -85,11 +85,6 @@ in {
                 ++ [
                   entryPoint
                   {
-                    _module.args = {
-                      inherit inputs self;
-                    };
-                  }
-                  {
                     networking = {
                       hostName = name;
                       hostId = builtins.substring 0 8 (builtins.hashString "md5" name);
@@ -98,6 +93,9 @@ in {
                     system.configurationRevision = self.rev or "dirty";
                   }
                 ];
+              specialArgs = {
+                inherit inputs self;
+              };
             };
 
             nixosPackage = config.nixosConfig.config.system.build.toplevel;

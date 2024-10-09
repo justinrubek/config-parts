@@ -121,7 +121,6 @@ in {
                 config.entryPoint
                 {
                   _module.args = {
-                    inherit inputs self;
                     inherit (config) homeDirectory username;
                   };
                 }
@@ -135,6 +134,9 @@ in {
             homeConfig = inputs.home-manager.lib.homeManagerConfiguration {
               inherit (config) pkgs;
               modules = config.finalModules;
+              specialArgs = {
+                inherit inputs self;
+              };
             };
 
             homePackage = config.homeConfig.activationPackage;
