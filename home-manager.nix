@@ -45,6 +45,7 @@ in {
           username = builtins.elemAt splitName 0;
           hostname = builtins.elemAt splitName 2;
         in {
+          _file = ./home-manager.nix;
           options = {
             system = lib.mkOption {
               type = lib.types.enum (import systems);

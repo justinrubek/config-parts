@@ -39,6 +39,7 @@ in {
           config,
           ...
         }: {
+          _file = ./nixos.nix;
           options = {
             system = lib.mkOption {
               type = lib.types.enum (import systems);
