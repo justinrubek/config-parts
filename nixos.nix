@@ -79,26 +79,31 @@ in {
           config = let
             entryPoint = "${self}/nixos/configurations/${name}";
           in {
-            nixosConfig = withSystem config.system ({ inputs', self', ...}: nixpkgs.lib.nixosSystem {
-              inherit (config) system;
-              modules =
-                cfg.modules.shared
-                ++ config.modules
-                ++ [
-                  entryPoint
-                  {
-                    networking = {
-                      hostName = name;
-                      hostId = builtins.substring 0 8 (builtins.hashString "md5" name);
-                    };
-                    nix.flakes.enable = true;
-                    system.configurationRevision = self.rev or "dirty";
-                  }
-                ];
-              specialArgs = {
-                inherit inputs inputs' self self';
-              };
-            });
+            nixosConfig = withSystem config.system ({
+              inputs',
+              self',
+              ...
+            }:
+              nixpkgs.lib.nixosSystem {
+                inherit (config) system;
+                modules =
+                  cfg.modules.shared
+                  ++ config.modules
+                  ++ [
+                    entryPoint
+                    {
+                      networking = {
+                        hostName = name;
+                        hostId = builtins.substring 0 8 (builtins.hashString "md5" name);
+                      };
+                      nix.flakes.enable = true;
+                      system.configurationRevision = self.rev or "dirty";
+                    }
+                  ];
+                specialArgs = {
+                  inherit inputs inputs' self self';
+                };
+              });
 
             nixosPackage = config.nixosConfig.config.system.build.toplevel;
             packageName = "nixos/configuration/${name}";
