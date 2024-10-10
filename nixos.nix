@@ -7,6 +7,7 @@
   inputs,
   config,
   lib,
+  withSystem,
   ...
 }: let
   cfg = config.config-parts.nixos;
@@ -77,7 +78,7 @@ in {
           config = let
             entryPoint = "${self}/nixos/configurations/${name}";
           in {
-            nixosConfig = nixpkgs.lib.nixosSystem {
+            nixosConfig = withSystem config.system ({ inputs', self', ...}: nixpkgs.lib.nixosSystem {
               inherit (config) system;
               modules =
                 cfg.modules.shared
@@ -94,9 +95,9 @@ in {
                   }
                 ];
               specialArgs = {
-                inherit inputs self;
+                inherit inputs inputs' self self';
               };
-            };
+            });
 
             nixosPackage = config.nixosConfig.config.system.build.toplevel;
             packageName = "nixos/configuration/${name}";

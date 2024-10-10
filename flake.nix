@@ -15,8 +15,12 @@
       inherit (flake-parts-lib) importApply;
 
       flakeModules = {
-        home = importApply ./home-manager.nix {inherit (inputs) home-manager nixpkgs systems;};
-        nixos = importApply ./nixos.nix {inherit (inputs) nixpkgs systems;};
+        home = importApply ./home-manager.nix {
+          inherit (inputs) home-manager nixpkgs systems;
+        };
+        nixos = importApply ./nixos.nix {
+          inherit (inputs) nixpkgs systems;
+        };
       };
     in {
       systems = import inputs.systems;

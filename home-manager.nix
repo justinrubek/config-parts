@@ -8,6 +8,7 @@
   inputs,
   config,
   lib,
+  withSystem,
   ...
 }: let
   cfg = config.config-parts.home;
@@ -131,13 +132,18 @@ in {
                 }
               ];
 
-            homeConfig = inputs.home-manager.lib.homeManagerConfiguration {
-              inherit (config) pkgs;
-              modules = config.finalModules;
-              specialArgs = {
-                inherit inputs self;
-              };
-            };
+            homeConfig = withSystem config.system ({
+              inputs',
+              self',
+              ...
+            }:
+              inputs.home-manager.lib.homeManagerConfiguration {
+                inherit (config) pkgs;
+                modules = config.finalModules;
+                extraSpecialArgs = {
+                  inherit inputs inputs' self self';
+                };
+              });
 
             homePackage = config.homeConfig.activationPackage;
             packageName = "home/configuration/${name}";
