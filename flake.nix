@@ -2,10 +2,6 @@
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
     git-hooks.url = "github:cachix/git-hooks.nix";
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nixpkgs.url = "nixpkgs/nixos-unstable";
     systems.url = "github:nix-systems/default";
   };
@@ -16,7 +12,7 @@
 
       flakeModules = {
         home = importApply ./home-manager.nix {
-          inherit (inputs) home-manager nixpkgs systems;
+          inherit (inputs) nixpkgs systems;
         };
         nixos = importApply ./nixos.nix {
           inherit (inputs) nixpkgs systems;

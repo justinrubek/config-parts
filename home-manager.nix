@@ -1,5 +1,4 @@
 {
-  home-manager,
   nixpkgs,
   systems,
   ...
@@ -27,6 +26,12 @@
 in {
   options = {
     config-parts.home = {
+      home-manager = lib.mkOption {
+        type = lib.types.unspecified;
+        default = inputs.home-manager;
+        description = "the home-manager flake";
+      };
+
       modules.shared = lib.mkOption {
         type = lib.types.listOf lib.types.unspecified;
         default = [];
@@ -138,7 +143,7 @@ in {
               self',
               ...
             }:
-              home-manager.lib.homeManagerConfiguration {
+              cfg.home-manager.lib.homeManagerConfiguration {
                 inherit (config) pkgs;
                 modules = config.finalModules;
                 extraSpecialArgs = {
