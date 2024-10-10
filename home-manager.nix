@@ -137,7 +137,7 @@ in {
               self',
               ...
             }:
-              inputs.home-manager.lib.homeManagerConfiguration {
+              home-manager.lib.homeManagerConfiguration {
                 inherit (config) pkgs;
                 modules = config.finalModules;
                 extraSpecialArgs = {
