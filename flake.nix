@@ -11,6 +11,9 @@
       inherit (flake-parts-lib) importApply;
 
       flakeModules = {
+        darwin = importApply ./nix-darwin.nix {
+          inherit (inputs) nixpkgs systems;
+        };
         home = importApply ./home-manager.nix {
           inherit (inputs) nixpkgs systems;
         };
