@@ -30,6 +30,13 @@
 
       flake = {
         inherit flakeModules;
+
+        templates = {
+          home-manager = {
+            description = "simple usage of the `home` module to define a home-manager configuration";
+            path = ./examples/home-manager;
+          };
+        };
       };
     });
 }
