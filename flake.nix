@@ -36,6 +36,10 @@
             description = "simple usage of the `home` module to define a home-manager configuration";
             path = ./examples/home-manager;
           };
+          nix-darwin = {
+            description = "simple usage of the `darwin` module to define a nix-darwin configuration";
+            path = ./examples/nix-darwin;
+          };
           nixos = {
             description = "simple usage of the `nixos` module to define a nixos configuration";
             path = ./examples/nixos;
