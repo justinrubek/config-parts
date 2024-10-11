@@ -127,11 +127,6 @@ in {
               ++ [
                 config.entryPoint
                 {
-                  _module.args = {
-                    inherit (config) homeDirectory username;
-                  };
-                }
-                {
                   home = {
                     inherit (config) username homeDirectory;
                   };
