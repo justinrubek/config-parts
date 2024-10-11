@@ -36,6 +36,10 @@
             description = "simple usage of the `home` module to define a home-manager configuration";
             path = ./examples/home-manager;
           };
+          nixos = {
+            description = "simple usage of the `nixos` module to define a nixos configuration";
+            path = ./examples/nixos;
+          };
         };
       };
     });
