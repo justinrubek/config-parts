@@ -96,7 +96,7 @@ in {
                         hostName = name;
                         hostId = builtins.substring 0 8 (builtins.hashString "md5" name);
                       };
-                      nix.flakes.enable = true;
+                      nix.settings.experimental-features = ["nix-command" "flakes"];
                       system.configurationRevision = self.rev or "dirty";
                     }
                   ];
